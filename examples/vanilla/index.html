@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>veriwell-capture demo</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>veriwell-capture</h1>
+        <p class="lede">
+          Document capture, guided selfie poses and MRZ parsing, running entirely in this browser tab.
+          Nothing is uploaded.
+        </p>
+        <label class="toggle">
+          <input id="sound" type="checkbox" checked />
+          Sound, voice and vibration cues
+        </label>
+      </header>
+
+      <section aria-labelledby="doc-title">
+        <h2 id="doc-title">1. Document capture</h2>
+        <p class="hint">Hold an ID card or passport photo page inside the frame. It captures automatically once the picture is sharp, steady and glare-free.</p>
+        <div class="stage stage-document">
+          <video id="doc-video" muted playsinline autoplay></video>
+          <div id="doc-guide" class="guide guide-document"></div>
+          <p id="doc-status" class="status">Camera is off</p>
+        </div>
+        <div class="actions">
+          <button id="doc-start" type="button">Start rear camera</button>
+          <button id="doc-capture" type="button" class="secondary" disabled>Capture now</button>
+        </div>
+        <div id="doc-result" class="result" hidden>
+          <img id="doc-image" alt="Captured document" />
+          <pre id="doc-quality"></pre>
+        </div>
+      </section>
+
+      <section aria-labelledby="face-title">
+        <h2 id="face-title">2. Guided selfie poses</h2>
+        <p class="hint">Keep your face in the oval and follow the spoken prompts. You will hear a tick when a pose is found and a chime when it is captured.</p>
+        <div class="stage stage-face">
+          <video id="face-video" class="mirrored" muted playsinline autoplay></video>
+          <div id="face-guide" class="guide guide-face"></div>
+          <p id="face-status" class="status">Camera is off</p>
+        </div>
+        <ol id="face-steps" class="steps"></ol>
+        <div class="actions">
+          <button id="face-start" type="button">Start selfie camera</button>
+        </div>
+        <p class="sr-only" id="face-live" aria-live="assertive"></p>
+        <div id="face-result" class="thumbs" hidden></div>
+      </section>
+
+      <section aria-labelledby="mrz-title">
+        <h2 id="mrz-title">3. MRZ parser</h2>
+        <p class="hint">Paste OCR text from a passport (or a UK driving licence). The sample is the ICAO 9303 specimen.</p>
+        <textarea id="mrz-input" rows="4" spellcheck="false">P&lt;UTOERIKSSON&lt;&lt;ANNA&lt;MARIA&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;
+L898902C36UTO7408122F1204159ZE184226B&lt;&lt;&lt;&lt;&lt;10</textarea>
+        <div class="actions">
+          <button id="mrz-passport" type="button">Parse passport</button>
+          <button id="mrz-licence" type="button" class="secondary">Parse driving licence</button>
+        </div>
+        <pre id="mrz-output"></pre>
+      </section>
+
+      <footer>
+        <p>Client-side checks only guide the user. Make the real verification decision on your server.</p>
+      </footer>
+    </main>
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>
